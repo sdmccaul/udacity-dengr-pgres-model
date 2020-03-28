@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS songs(
 
 time_table_create = ("""
 CREATE TABLE IF NOT EXISTS time(
-    start_time int primary key,
+    start_time timestamp primary key,
     hour int,
     day int,
     week int,
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS time(
 songplay_table_create = ("""
 CREATE TABLE IF NOT EXISTS songplays(
     songplay_id serial primary key,
-    start_time int references time (start_time),
+    start_time timestamp references time (start_time),
     user_id int references users (user_id),
     level varchar,
     song_id varchar references songs (song_id),
@@ -114,6 +114,8 @@ VALUES (%s, %s, %s, %s, %s);
 
 
 time_table_insert = ("""
+INSERT INTO time (start_time, hour, day, week, month, year, weekday)
+VALUES (%s, %s, %s, %s, %s, %s, %s);
 """)
 
 # FIND SONGS
